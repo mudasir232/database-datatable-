@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>JQuery Datatable Example</title>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#jquery-datatable-ajax-php').DataTable({
+            'processing': true,
+            'serverSide': true,
+            'ajax': {
+                'url':'datatable.php',
+                'method': 'POST'
+            },
+            'columns': [
+                { 'data': 'email' },
+                { 'data': 'first_name' },
+                { 'data': 'last_name' },
+                { 'data': 'address' }
+            ],
+            'dom': 'Bfrtip',
+            'buttons': [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+
+        function addNewRow() {
+            table.row
+                .add([
+                    counter + '.1',
+                    counter + '.2',
+                    counter + '.3',
+                    counter + '.4',
+                    counter + '.5'
+                ])
+                .draw(false);
+
+            counter++;
+        }
+
+        const table = $('#jquery-datatable-ajax-php').DataTable();
+        let counter = 1;
+
+        $('#addRow').click(addNewRow);
+        
+        // Automatically add a first row of data
+        addNewRow();
+    });
+</script>
+    
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 style="margin-bottom: 30px;">jQuery Datatable Ajax PHP Example</h2>
+        <table id="jquery-datatable-ajax-php" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</body>
+</html>
+
+
